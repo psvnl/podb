@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>wizardPage5</class>
+ <widget class="QWizardPage" name="wizardPage5">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>545</width>
+    <height>310</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Miscellaneous Settings</string>
+  </property>
+  <property name="subTitle">
+   <string>Select the default payment terms, order status and the tax rate. You will be able to change these settings later by selecting &quot;Configuration Wizard...&quot; in the Edit menu.</string>
+  </property>
+  <attribute name="pageId">
+   <string notr="true">5</string>
+  </attribute>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>80</y>
+     <width>256</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
+     <widget class="QLabel" name="poDefaultPaymentTermsLabel">
+      <property name="text">
+       <string>Default Payment Terms:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="poDefaultPaymentTermsComboBox">
+      <property name="toolTip">
+       <string>Select the default payment terms</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="poDefaultOrderStatusLabel">
+      <property name="text">
+       <string>Default Order Status:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="poDefaultOrderStatusComboBox">
+      <property name="toolTip">
+       <string>Select the default order status</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="locTaxRateLabel">
+      <property name="text">
+       <string>Tax Rate: *</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="locTaxRateLineEdit">
+      <property name="toolTip">
+       <string>Enter the tax rate as a decimal, e.g., 0.14 for 14%</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>200</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>* indicates required fields</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

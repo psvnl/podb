@@ -1,0 +1,12 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+<file alias="new.png">images/new.png</file>
+<file alias="copy.png">images/copy.png</file>
+<file alias="clear.png">images/clear.png</file>
+<file alias="open.png">images/open.png</file>
+<file alias="print.png">images/print.png</file>
+<file alias="save.png">images/save.png</file>
+<file alias="exportpdf.png">images/exportpdf.png</file>
+<file alias="podbicon.png">images/podbicon.png</file>
+</qresource>
+</RCC>

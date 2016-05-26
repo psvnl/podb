@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>wizardPage4</class>
+ <widget class="QWizardPage" name="wizardPage4">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>545</width>
+    <height>310</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WizardPage</string>
+  </property>
+  <property name="title">
+   <string>Company Details</string>
+  </property>
+  <property name="subTitle">
+   <string>Fill in the details of your company. You will be able to change these settings later by selecting &quot;Configuration Wizard...&quot; in the Edit menu.</string>
+  </property>
+  <attribute name="pageId">
+   <string notr="true">4</string>
+  </attribute>
+  <widget class="QLabel" name="coPostalAddressLabel">
+   <property name="geometry">
+    <rect>
+     <x>279</x>
+     <y>10</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Postal Address: *</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="coPostalAddressPlainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>10</y>
+     <width>150</width>
+     <height>62</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="toolTip">
+    <string>Enter the company postal address</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="coPhysicalAddressPlainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>111</x>
+     <y>10</y>
+     <width>150</width>
+     <height>62</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="toolTip">
+    <string>Enter the company physical address</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>77</y>
+     <width>523</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
+     <widget class="QLabel" name="coGpsCoordsLabel">
+      <property name="text">
+       <string>GPS Coordinates:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="coGpsCoordsLineEdit">
+      <property name="toolTip">
+       <string>Enter the company's GPS coordinates</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="coTelephoneLabel">
+      <property name="text">
+       <string>Telephone Number: *</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="coTelephoneLineEdit">
+      <property name="toolTip">
+       <string>Enter the company's telephone number</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="coFaxLabel">
+      <property name="text">
+       <string>Fax Number:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="coFaxLineEdit">
+      <property name="toolTip">
+       <string>Enter the company's fax number</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="coEmailLabel">
+      <property name="text">
+       <string>Email Address:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <widget class="QLineEdit" name="coEmailLineEdit">
+      <property name="toolTip">
+       <string>Enter the company's email address</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="coWebLabel">
+      <property name="text">
+       <string>Web Address:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" colspan="2">
+     <widget class="QLineEdit" name="coWebLineEdit">
+      <property name="toolTip">
+       <string>Enter the company's web address</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="coSignatoryLabel">
+      <property name="text">
+       <string>Signatory Name: *</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="coSignatureFileLabel">
+      <property name="text">
+       <string>Signature Filename:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1" colspan="3">
+     <widget class="QLineEdit" name="coSignatureFileLineEdit">
+      <property name="toolTip">
+       <string>Enter or browse for the signature image file that should appear on the PDF of the purchase order.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QPushButton" name="coSignatureFilePushButton">
+      <property name="text">
+       <string>Browse...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="coLogoFileLabel">
+      <property name="text">
+       <string>Logo Filename:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1" colspan="3">
+     <widget class="QLineEdit" name="coLogoFileLineEdit">
+      <property name="toolTip">
+       <string>Enter or browse for the company logo image file that should appear on the letterhead of the PDF of the purchase order.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="4">
+     <widget class="QPushButton" name="coLogoFilePushButton">
+      <property name="text">
+       <string>Browse...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" colspan="2">
+     <widget class="QLineEdit" name="coSignatoryLineEdit">
+      <property name="toolTip">
+       <string>Enter the name of the person that signs the purchase orders</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="coPhysicalAddressLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>95</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Physical Address: *</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>268</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>* indicates required fields</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
