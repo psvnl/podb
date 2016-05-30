@@ -19,13 +19,16 @@ Contact: paulosvnleal@gmail.com
 
 import os
 import datetime
+from PyQt4.QtGui import QMessageBox
 from reportlab.platypus import Image, SimpleDocTemplate, Spacer, Table
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.lib import colors
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.pagesizes import A4, landscape
-from datavalidation import validate_num_address_lines
+from datavalidation import (validate_num_address_lines, 
+                            DATA_VAL_ERROR_MSG_BOX_TITLE)
+from messagebox import execute_warning_msg_box
 
 _LEFT_RIGHT_MARGIN_WIDTH = cm*2
 _TOP_BOTTOM_MARGIN_WIDTH = cm
@@ -74,14 +77,27 @@ class PoPdfCompanyDetails(object):
     
     def __init__(self, name, address, phone, fax="", email="", web="",
                  logo_filename=None):
+        # The first three parameters are required. The configuration management
+        # should have already confirmed that they are fine.
         if name is None:
             raise ValueError("The name parameter is invalid.")
         if address is None:
             raise ValueError("The address parameter is invalid.")
         if phone is None:
             raise ValueError("The phone parameter is invalid.")
-        if os.path.exists(logo_filename) != True:
-            raise ValueError("The logo_filename parameter is invalid.")
+        if logo_filename is None or logo_filename == "":
+            # No logo filename. No problem.
+            self.logo_filename = None
+        else:
+            if os.path.exists(logo_filename) != True:
+                self.logo_filename = None
+                execute_warning_msg_box(DATA_VAL_ERROR_MSG_BOX_TITLE,
+                                        ("The configured company logo file "
+                                         "could not be found. The PDF will "
+                                         "be generated without it."),
+                                        QMessageBox.Ok)
+            else:
+                self.logo_filename = logo_filename
         self.name = name
         self.address_lines = validate_num_address_lines(address)
         self.address = address
@@ -89,7 +105,6 @@ class PoPdfCompanyDetails(object):
         self.fax = fax
         self.email = email
         self.web = web
-        self.logo_filename = logo_filename
 
     
 class PoPdfOrderDetails(object):
@@ -195,7 +210,7 @@ class PoPdf(object):
     The PDF report of a purchase order (PO) comprises the following sections:
     - A letterhead showing company logo (or name), company address and contact 
       details, the order number, order date, and payment terms.
-    - A supplier nformation block showing the supplier name, address and contact
+    - A supplier information block showing the supplier name, address and contact
       details.
     - A delivery information block showing the delivery address and date. 
     - A table with the items, prices and totals
@@ -272,8 +287,8 @@ class PoPdf(object):
         table = Table(table_data, 
                       colWidths=col_widths, 
                       hAlign="LEFT")
-        table.setStyle([("FONT",     (-1,0), (-1,0), "Helvetica-Bold"),
-                        ("FONTSIZE", (-1,0), (-1,0), 16),
+        table.setStyle([("FONT",     (0,0), (-1,0), "Helvetica-Bold"),
+                        ("FONTSIZE", (0,0), (-1,0), 16),
                         ("VALIGN",   (-1,0), (-1,0), "MIDDLE")])
         self._show_grid_if_required(table)
         self.story.append(table)
