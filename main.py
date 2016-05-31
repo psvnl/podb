@@ -29,6 +29,11 @@ from dbaccess import (sqlite_database_exists, sqlite_connection_is_ok,
 __version__ = "0.1"
 
 
+RETURN_CODE_UNDEFINED = -1
+RETURN_CODE_INVALID_APP_CONFIG = 1
+RETURN_CODE_INVALID_USER_CONFIG = 2
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     start_main_window = False
@@ -79,17 +84,19 @@ if __name__ == '__main__':
     # In case of errors, run the configuration wizard (which will include 
     # testing the connection to the database and validating the configuration 
     # record in the database).
+    return_code = RETURN_CODE_UNDEFINED
     from configwizard import StartUpConfigWizard
-    if not app_config_ok or not db_exists or not db_connection_ok:
+    if not app_config_ok or not db_exists or not db_connection_ok \
+    or not user_config.config_valid:
         config_wizard = StartUpConfigWizard(app_config)
         result = config_wizard.exec_()
         if result == QWizard.Accepted:
             start_main_window = True
-    elif not user_config.config_valid:
-        config_wizard = StartUpConfigWizard(app_config)
-        result = config_wizard.exec_()
-        if result == QWizard.Accepted:
-            start_main_window = True
+        else:
+            if not app_config_ok:
+                return_code = RETURN_CODE_INVALID_APP_CONFIG
+            else:
+                return_code = RETURN_CODE_INVALID_USER_CONFIG
     else:
         start_main_window = True
     if start_main_window:
@@ -104,4 +111,5 @@ if __name__ == '__main__':
         with session_scope() as session:
             form = MainWindow(app_config, session)
             form.show()
-            app.exec_()
+            return_code = app.exec_()
+    sys.exit(return_code)
