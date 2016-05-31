@@ -26,9 +26,6 @@ from dbaccess import (sqlite_database_exists, sqlite_connection_is_ok,
                       mysql_database_exists, mysql_connection_is_ok)
 
 
-__version__ = "0.1"
-
-
 RETURN_CODE_UNDEFINED = -1
 RETURN_CODE_INVALID_APP_CONFIG = 1
 RETURN_CODE_INVALID_USER_CONFIG = 2
@@ -101,13 +98,13 @@ if __name__ == '__main__':
         start_main_window = True
     if start_main_window:
         import ctypes
+        from mainwindow import MainWindow, __version__
         myappid = u"POdB.{}".format(__version__)
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
         from sqlaengine import engine
         from sqlabase import Base
         Base.metadata.create_all(engine)
         from sqlasession import session_scope
-        from mainwindow import MainWindow
         with session_scope() as session:
             form = MainWindow(app_config, session)
             form.show()

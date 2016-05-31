@@ -18,6 +18,7 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import datetime
+from platform import python_version
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -48,6 +49,11 @@ from pdfreports import (PoPdf, PoPdfCompanyDetails, PoPdfOrderDetails,
                         PoPdfSupplierDetails, PoPdfLineItemDetails, 
                         PoPdfDeliveryDetails, PoPdfSignatureDetails)
 from userconfigmodel import UserConfigReader
+import sqlalchemy
+import reportlab
+
+
+__version__ = "0.1"
 
 
 class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
@@ -79,7 +85,6 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
         # settings file.
         window_title = "{}: {}".format("POdB", self.app_config.company.name)
         self.setWindowTitle(window_title)
-        # TODO: Set the window icon to the configured file if available.
         # If we have reached this point then we are connected to the database.
         status_text = []
         status_text.append("Connected to ")
@@ -141,6 +146,9 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
         # View menu handlers
         self.connect(self.actionViewReports, SIGNAL("triggered()"),
                      self.on_viewReportsAction_triggered)
+        # Help menu handlers
+        self.connect(self.actionAbout, SIGNAL("triggered()"),
+                     self.on_aboutAction_triggered)
                                 
     def populate_order_status_combo_box(self):
         for order_status in PO_ORDER_STATUSUS:
@@ -838,6 +846,46 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
                                            parent=self)
             reports_dialog.exec_()
 
+    @pyqtSignature("")
+    def on_aboutAction_triggered(self):
+        version_line = "<b>POdB v {}</b>".format(__version__)
+        description_line = ("A purchase order management system for small "
+                            "businesses.")
+        copyright_line = "Copyright &copy; 2016  Paulo S. V. N. Leal"
+        python_ver = "Python: {}".format(python_version())
+        qt_ver = "Qt: {}".format(QT_VERSION_STR)
+        pyqt_ver = "PyQt: {}".format(PYQT_VERSION_STR)
+        sqla_ver = "SQL Alchemy: {}".format(sqlalchemy.__version__)
+        reportlab_ver = "Reportlab: {}".format(reportlab.Version)
+        warranty_line = "This program comes with ABSOLUTELY NO WARRANTY."
+        license_par_1 = ("This is free software, and you are welcome to " 
+                         "redistribute it under the terms of the GNU "
+                         "General Public License as published by the Free "
+                         "Software Foundation, either version 3 of the "
+                         "License, or (at your option) any later version.")
+        license_par_2 = ("You should have received a copy of the GNU General "
+                         "Public License along with this program. If not, see "
+                         "http://www.gnu.org/licenses/.")
+        QMessageBox.about(self,
+                          "About POdB",
+                          ("{}"
+                           "<p>{}"
+                           "<p>{}"
+                           "<p>{}; {}; {}; {}; {}"
+                           "<p>{}"
+                           "<p>{}"
+                           "<p>{}").format(version_line,
+                                           description_line,
+                                           copyright_line,
+                                           python_ver,
+                                           qt_ver,
+                                           pyqt_ver,
+                                           sqla_ver,
+                                           reportlab_ver,
+                                           warranty_line,
+                                           license_par_1,
+                                           license_par_2))
+        
     @pyqtSignature("")
     def on_exitAction_triggered(self):
         self.close()
