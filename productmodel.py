@@ -187,27 +187,28 @@ class ProductModel(QAbstractTableModel):
             if role == Qt.CheckStateRole and column == self.ARCHIVED_COLUMN:
                 self._validate_and_set_archived(index, value)
             else:
-                if value:
-                    try:
-                        if column == self.PART_NUMBER_COLUMN:
+                try:
+                    if column == self.PART_NUMBER_COLUMN:
+                        if value:
                             self._validate_and_set_part_number(index, value)
-                        elif column == self.PRODUCT_DESCRIPTION_COLUMN:
+                    elif column == self.PRODUCT_DESCRIPTION_COLUMN:
+                        if value:
                             self._validate_and_set_product_description(index, 
                                                                        value)
-                        elif column == self.CURRENT_PRICE_COLUMN:
-                            self._validate_and_set_current_price(index, 
-                                                                 Decimal(value))
-                        elif column == self.CURRENT_DISCOUNT_COLUMN:
-                            # No need to convert to decimal here because the 
-                            # PercentageEditDelegate passes a decimal.
-                            self._validate_and_set_current_discount(index, 
-                                                                    value)
-                        elif column == self.ARCHIVED_COLUMN:
-                            pass
-                    except ValueError:
-                        # If the user types in something stupid then don't do 
-                        # anything.
-                        return False
+                    elif column == self.CURRENT_PRICE_COLUMN:
+                        self._validate_and_set_current_price(index, 
+                                                             Decimal(value))
+                    elif column == self.CURRENT_DISCOUNT_COLUMN:
+                        # No need to convert to decimal here because the 
+                        # PercentageEditDelegate passes a decimal.
+                        self._validate_and_set_current_discount(index, 
+                                                                value)
+                    elif column == self.ARCHIVED_COLUMN:
+                        pass
+                except ValueError:
+                    # If the user types in something stupid then don't do 
+                    # anything.
+                    return False
             return True
         return False
     
