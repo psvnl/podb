@@ -179,6 +179,7 @@ class AddressEditDelegate(QItemDelegate):
         editor.blockSignals(True)
         editor.document().setPlainText(index.model().data(index, 
                                                           role=Qt.EditRole))
+        editor.selectAll()
         editor.blockSignals(False)
         
     def setModelData(self, editor, model, index):
