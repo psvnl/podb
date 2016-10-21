@@ -17,8 +17,9 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 Contact: paulosvnleal@gmail.com
 '''
 
-import datetime
 import sys
+import datetime
+import logging
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -218,6 +219,14 @@ class ReportsDialog(QDialog, ui_reportsdialog.Ui_reportsDialog):
                                    line_item_details,
                                    self.company_name)
             pdf_report.build()
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F12:
+            p = QPixmap.grabWindow(self.winId())
+            date = datetime.datetime.now()
+            filename = date.strftime("screenshot-%Y-%m-%d_%H-%M-%S.jpg")
+            p.save(filename, "jpg")
+            logging.debug("{} screenshot done".format(type(self).__name__))
             
     def closeEvent(self, event):
         super(ReportsDialog, self).closeEvent(event)

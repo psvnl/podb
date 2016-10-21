@@ -18,6 +18,7 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import datetime
+import logging
 from platform import python_version
 
 from PyQt4.QtCore import *
@@ -496,7 +497,7 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
           model's line item model
         '''
         if self.prerequisites_for_new_met() is True:
-            print("---> New")
+            logging.debug("New PO")            
             self.show_save_before_po_access()
             if self.active_po_model:
                 del self.active_po_model
@@ -548,7 +549,7 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
           model's line item model
         '''
         if self.prerequisites_for_open_met() is True:
-            print("---> Open")
+            logging.debug("Open PO")
             self.show_save_before_po_access()
             purchase_orders_dialog = PurchaseOrdersDialog(self.app_config,
                                                           self.session, 
@@ -630,7 +631,7 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
         # The dialogs may be accessed without a purchase order being open. 
         # Therefore, the check to see if an active purchase order exists is 
         # necessary.
-        print("---> Save all")
+        logging.debug("Save all")
         if self.po_mapper:
             self.po_mapper.submit()
         if self.active_po_model:
@@ -886,6 +887,14 @@ class MainWindow(QMainWindow, ui_mainwindow.Ui_MainWindow):
                                            license_par_1,
                                            license_par_2))
         
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F12:
+            p = QPixmap.grabWindow(self.winId())
+            date = datetime.datetime.now()
+            filename = date.strftime("screenshot-%Y-%m-%d_%H-%M-%S.jpg")
+            p.save(filename, "jpg")
+            logging.debug("{} screenshot done".format(type(self).__name__))
+            
     @pyqtSignature("")
     def on_exitAction_triggered(self):
         self.close()

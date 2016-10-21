@@ -17,6 +17,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 Contact: paulosvnleal@gmail.com
 '''
 
+import logging
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from purchaseordermodel import PurchaseOrderModel
@@ -446,7 +447,7 @@ class ActivePurchaseOrderModel(QAbstractTableModel):
         Args:
             Refer to QAbstractItemModel.dataChanged.
         '''
-        print("_handle_change_in_po_data")
+        logging.debug("_handle_change_in_po_data")
         self.dirty = True
         self._calculate_totals()
         self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
@@ -462,7 +463,7 @@ class ActivePurchaseOrderModel(QAbstractTableModel):
         Args:
             Refer to QAbstractItemModel.dataChanged.
         '''
-        print("_handle_change_in_line_item_data")
+        logging.debug("_handle_change_in_line_item_data")
         self.dirty = True
         self._calculate_totals()
         self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
@@ -478,7 +479,7 @@ class ActivePurchaseOrderModel(QAbstractTableModel):
         Args:
             Refer to QAbstractItemModel.rowsRemoved.
         '''
-        print("_handle_line_item_rows_removed")
+        logging.debug("_handle_line_item_rows_removed")
         self.dirty = True
         self._calculate_totals()
         
@@ -492,7 +493,7 @@ class ActivePurchaseOrderModel(QAbstractTableModel):
         Args:
             Refer to QAbstractItemModel.rowsInserted.
         '''
-        print("_handle_line_item_rows_inserted")
+        logging.debug("_handle_line_item_rows_inserted")
         self.dirty = True
         self._calculate_totals()
         

@@ -18,6 +18,8 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import sys
+import datetime
+import logging
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import ui_suppliersdialog
@@ -89,6 +91,14 @@ class SuppliersDialog(QDialog, ui_suppliersdialog.Ui_suppliersDialog):
         if save_allowed:
             self.accept()
            
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F12:
+            p = QPixmap.grabWindow(self.winId())
+            date = datetime.datetime.now()
+            filename = date.strftime("screenshot-%Y-%m-%d_%H-%M-%S.jpg")
+            p.save(filename, "jpg")
+            logging.debug("{} screenshot done".format(type(self).__name__))       
+    
     def closeEvent(self, event):
         super(SuppliersDialog, self).closeEvent(event)
 

@@ -18,6 +18,7 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import os
+import logging
 import sqlite3
 import mysql.connector
 
@@ -120,7 +121,7 @@ def mysql_database_exists(username, password, host, db_name):
     try:
         cursor.execute("USE {}".format(db_name))
     except mysql.connector.Error as e:
-        print("Error executing 'USE {}': {}".format(db_name, e.msg))
+        logging.debug("Error executing 'USE {}': {}".format(db_name, e.msg))
         cursor.close()
         conn.close()
         return False
@@ -129,7 +130,7 @@ def mysql_database_exists(username, password, host, db_name):
     return True
 
 def _print_mysql_connection_error(db_name, error_message):
-    print("Error connecting to MySQL database {}: {}".format(db_name, 
+    logging.debug("Error connecting to MySQL database {}: {}".format(db_name, 
                                                              error_message))
 
 def mysql_connection_is_ok(username, password, host, db_name):
@@ -229,7 +230,7 @@ def create_mysql_database_if_required(username, password, host, db_name):
         cursor.execute(("CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER "
                         "SET 'utf8'").format(db_name))
     except mysql.connector.Error as err:
-        print("Error: " + err.msg)
+        logging.debug("Error: " + err.msg)
         cursor.close()
         conn.close()
         return False

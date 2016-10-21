@@ -18,6 +18,7 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import datetime
+import logging
 from decimal import Decimal
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -240,7 +241,7 @@ class PurchaseOrderModel(QAbstractTableModel):
                 else:
                     self._validate_and_set_general_data(index, value)
             except ValueError:
-                print("ValueError")
+                logging.debug("ValueError")
                 # If the user types in something stupid then don't do anything.
                 return False
             return True

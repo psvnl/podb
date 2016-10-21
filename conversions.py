@@ -171,7 +171,6 @@ def monetary_float_to_int(value, app_config):
     Raises:
     :raises: AssertionError if value is not a Decimal.
     '''
-    print(str(type(value)))
     assert type(value) == float
     # Calculate the factor from the configured decimal places.
     decimal_places = int(app_config.locale.currency_decimal_places)

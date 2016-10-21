@@ -17,6 +17,8 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 Contact: paulosvnleal@gmail.com
 '''
 
+import datetime
+import logging
 from copy import copy
 from decimal import Decimal
 from PyQt4.QtCore import *
@@ -233,6 +235,14 @@ class InAppConfigWizard(QWizard, ui_configwizard.Ui_Wizard):
             
     def _finish_button_clicked(self):
         self.session.close()
+        
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F12:
+            p = QPixmap.grabWindow(self.winId())
+            date = datetime.datetime.now()
+            filename = date.strftime("screenshot-%Y-%m-%d_%H-%M-%S.jpg")
+            p.save(filename, "jpg")
+            logging.debug("{} screenshot done".format(type(self).__name__))
             
     def closeEvent(self, event):
         self.session.close()

@@ -18,6 +18,7 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import sys
+import logging
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -33,6 +34,8 @@ RETURN_CODE_INVALID_USER_CONFIG = 2
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    logging.basicConfig(level=logging.DEBUG, 
+                        format="-> %(asctime)s - %(levelname)s - %(message)s")
     start_main_window = False
     from appconfig import app_config, app_config_ok, DatabaseSection
     # Note that importing the appconfig module in the previous line created  

@@ -17,6 +17,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 Contact: paulosvnleal@gmail.com
 '''
 
+import logging
 from decimal import Decimal
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -261,15 +262,15 @@ class LineItemModel(QAbstractTableModel):
             column = index.column()
             try:
                 if column == self.PART_NUMBER_COLUMN:
-                    print("--------->setData: {}".format(str(index.row())))
-                    print("---------> 1")
+                    logging.debug("----->setData: {}".format(str(index.row())))
+                    logging.debug("-----> 1")
                     if self._request_to_add_new_product(value) is True:
-                        print("---------> 2")
+                        logging.debug("-----> 2")
                         # The user has requested to add a new product. 
                         # Therefore, emit the signal to notify the main form. 
                         self.emit(SIGNAL("add_new_product_requested()"))
                         return True
-                    print("---------> 3")
+                    logging.debug("-----> 3")
                     self._validate_and_set_part_number(index, value)
                 elif column == self.DESCRIPTION_COLUMN:
                     if self._request_to_add_new_product(value) is True:
@@ -284,7 +285,7 @@ class LineItemModel(QAbstractTableModel):
                 else:
                     self._validate_and_set_general_data(index, value)
             except ValueError:
-                print("ValueError")
+                logging.debug("ValueError")
                 # If the user types in something stupid then don't do anything.
                 return False
             return True

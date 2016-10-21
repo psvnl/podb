@@ -42,7 +42,8 @@ def _get_engine_string():
 
 if app_config.database.type == DatabaseSection.TYPE_SQLITE:
     engine = create_engine(_get_engine_string(), 
-                           echo=True)
+                           echo=False)
+    # Set echo=True in the line above to enable SQLAlchemy logging.
 elif app_config.database.type == DatabaseSection.TYPE_MYSQL:
     # Including the creation of the MySQL database here, opportunistically!
     create_mysql_database_if_required(app_config.database.username, 
@@ -54,7 +55,8 @@ elif app_config.database.type == DatabaseSection.TYPE_MYSQL:
     # the transaction.
     engine = create_engine(_get_engine_string(),
                            isolation_level="READ COMMITTED",
-                           echo=True)
+                           echo=False)
+    # Set echo=True in the line above to enable SQLAlchemy logging.
 else:
     # No other database types catered for.
     pass

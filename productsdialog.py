@@ -18,6 +18,8 @@ Contact: paulosvnleal@gmail.com
 '''
 
 import sys
+import datetime
+import logging
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import ui_productsdialog
@@ -136,6 +138,14 @@ class ProductsDialog(QDialog, ui_productsdialog.Ui_productsDialog):
         self.tableView.verticalHeader().setDefaultSectionSize(25)
         self.addRowPushButton.setEnabled(True)
         self.update_supplier_info()
+        
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_F12:
+            p = QPixmap.grabWindow(self.winId())
+            date = datetime.datetime.now()
+            filename = date.strftime("screenshot-%Y-%m-%d_%H-%M-%S.jpg")
+            p.save(filename, "jpg")
+            logging.debug("{} screenshot done".format(type(self).__name__))
         
     def closeEvent(self, event):
         super(ProductsDialog, self).closeEvent(event)
